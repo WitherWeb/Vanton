@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Функция для загрузки JSON файла
 async function loadJSON() {
   try {
-    const response = await fetch('../json/chart.json');
+    const response = await fetch('./json/chart.json');
     if (!response.ok) {
       throw new Error('Ошибка загрузки файла');
     }
