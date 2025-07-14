@@ -29,14 +29,14 @@
       </a>
       <nav class="menu" data-menu>
         <ul class="menu__list list-reset">
-          <li class="menu__item"><a href="" class="menu__link">Главная</a></li>
-          <li class="menu__item"><a href="" class="menu__link">О фонде</a></li>
-          <li class="menu__item"><a href="" class="menu__link">Порядок работы</a></li>
-          <li class="menu__item"><a href="" class="menu__link">Преимущества</a></li>
-          <li class="menu__item"><a href="" class="menu__link">Доходность</a></li>
-          <li class="menu__item"><a href="" class="menu__link">Отзывы</a></li>
-          <li class="menu__item"><a href="" class="menu__link">FAQ</a></li>
-          <li class="menu__item menu__item-btn"><a href="" class="menu__link menu__link-btn">Попробовать
+          <li class="menu__item"><a href="/" class="menu__link">Главная</a></li>
+          <li class="menu__item"><a href="#about" class="menu__link">О фонде</a></li>
+          <li class="menu__item"><a href="#work-steps" class="menu__link">Порядок работы</a></li>
+          <li class="menu__item"><a href="#advantages" class="menu__link">Преимущества</a></li>
+          <li class="menu__item"><a href="#profitability" class="menu__link">Доходность</a></li>
+          <li class="menu__item"><a href="#reviews" class="menu__link">Отзывы</a></li>
+          <li class="menu__item"><a href="#faq" class="menu__link">FAQ</a></li>
+          <li class="menu__item menu__item-btn"><a href="#application" class="menu__link menu__link-btn">Попробовать
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3.33203 10H16.6654" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M11.668 5L16.668 10L11.668 15" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
@@ -44,7 +44,7 @@
           </a></li>
         </ul>
       </nav>
-      <a class="header__link" href="">
+      <a class="header__link" href="#application">
         Попробовать
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.33398 10H16.6673" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
@@ -61,7 +61,7 @@
 </header>
 
     <main class="main">
-      <section class="hero">
+      <section class="hero" id="hero">
   <div class="container">
     <h1 class="hero__title">
       <span>Доходность 105,1% годовых</span> <br> за 6,5 лет
@@ -120,7 +120,7 @@
                   <svg width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.068 4.16L6.132 4.424C5.988 3.596 5.4 2.996 4.452 2.84V5.972C6.108 6.368 7.284 6.908 7.284 8.54C7.284 10.004 6.204 10.952 4.452 11.084V12.164H3.552V11.072C1.74 10.916 0.696 9.812 0.588 8.492L1.572 8.228C1.668 9.248 2.316 9.992 3.552 10.148V6.728C2.088 6.368 0.9 5.864 0.9 4.304C0.9 2.876 2.016 2.036 3.552 1.916V0.92H4.452V1.928C5.88 2.084 6.864 2.9 7.068 4.16ZM1.908 4.232C1.908 5.06 2.52 5.444 3.552 5.744V2.816C2.484 2.924 1.908 3.44 1.908 4.232ZM6.264 8.588C6.264 7.664 5.628 7.268 4.452 6.944V10.172C5.532 10.076 6.264 9.536 6.264 8.588Z" fill="#979799"/>
                   </svg>
-                  <input class="hero__calculator-input input-reset" type="number" value="10000" min="10000" max="100000">
+                  <input class="hero__calculator-input input-reset" type="number" value="10000" min="10000" max="100000" id="initialBalance">
                 </label>
               </div>
               <div class="hero__calculator-input-wrapper">
@@ -137,15 +137,87 @@
               </div>
             </div>
           </div>
-          <div style="width: 100%;"><canvas id="balanceChart"></canvas></div>
+          <div class="chart-wrapper" style="width: 100%;"><canvas id="balanceChart"></canvas>
+          <img class="chart-bg" src="./img/chart-bg.svg" alt="">
+          <div id="customPoint" class="custom-point">
+            <svg width="85" height="87" viewBox="0 0 85 87" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.3" filter="url(#filter0_d_182_964)">
+<circle cx="42.2306" cy="27.2306" r="27.2306" fill="url(#paint0_radial_182_964)"/>
+</g>
+<g opacity="0.3" filter="url(#filter1_d_182_964)">
+<circle cx="41.9893" cy="26.9874" r="13.3722" fill="url(#paint1_radial_182_964)"/>
+</g>
+<g opacity="0.2" filter="url(#filter2_d_182_964)">
+<circle cx="41.7451" cy="26.7443" r="6.80764" fill="url(#paint2_linear_182_964)"/>
+</g>
+<g filter="url(#filter3_d_182_964)">
+<circle cx="41.7416" cy="26.7443" r="3.89008" fill="url(#paint3_linear_182_964)"/>
+</g>
+<defs>
+<filter id="filter0_d_182_964" x="0" y="0" width="84.4609" height="86.4611" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="17"/>
+<feGaussianBlur stdDeviation="7.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.136812 0 0 0 0 0.101269 0 0 0 0 0.213303 0 0 0 0.624179 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_182_964"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_182_964" result="shape"/>
+</filter>
+<filter id="filter1_d_182_964" x="15.6172" y="7.6153" width="52.7441" height="52.7443" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="7"/>
+<feGaussianBlur stdDeviation="6.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.105882 0 0 0 0 0.0980392 0 0 0 0 0.25098 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_182_964"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_182_964" result="shape"/>
+</filter>
+<filter id="filter2_d_182_964" x="19.9375" y="6.93671" width="43.6152" height="43.6153" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="7.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.109804 0 0 0 0 0.101961 0 0 0 0 0.254902 0 0 0 0.43784 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_182_964"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_182_964" result="shape"/>
+</filter>
+<filter id="filter3_d_182_964" x="22.8516" y="9.85425" width="37.7793" height="37.7802" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="7.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.109804 0 0 0 0 0.101961 0 0 0 0 0.254902 0 0 0 0.43784 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_182_964"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_182_964" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_182_964" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(42.2306 27.2306) rotate(28.5925) scale(37.9491)">
+<stop stop-color="#2E64E7"/>
+<stop offset="1" stop-color="#2E64E7" stop-opacity="0.01"/>
+</radialGradient>
+<radialGradient id="paint1_radial_182_964" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(41.9893 26.9874) rotate(31.0604) scale(15.6103)">
+<stop stop-color="#547ADF"/>
+<stop offset="1" stop-color="#547ADF" stop-opacity="0.01"/>
+</radialGradient>
+<linearGradient id="paint2_linear_182_964" x1="28.1299" y1="26.7443" x2="41.7451" y2="40.3596" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<linearGradient id="paint3_linear_182_964" x1="33.9615" y1="26.7443" x2="41.7416" y2="34.5245" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+</defs>
+</svg>
+
+          </div></div>
         </div>
         <div class="centered">
+
           <a class="hero__profitability-link" href="">
             <span class="hero__profitability-link-text">Получить  расширенную статистику</span>
           </a>
         </div>
       </div>
-
       <div class="hero__right">
         <div class="hero__block">
            <span class="hero__block-name">Контроль</span>
@@ -245,7 +317,7 @@
 
 </section>
 
-<section class="about">
+<section class="about" id="about">
   <div class="container">
     <div class="about__content">
       <div class="about__info">
@@ -260,7 +332,7 @@
           Мы создали уникальный торговый алгоритм, который доказал свою эффективность: средняя доходность
           за последние 6,5 лет составляет от 105% годовых
         </p>
-        <a class="about__link" href="">
+        <a class="about__link" href="#application">
           Начать
           <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11.5196 18.1482C11.6496 18.2882 11.8196 18.3582 11.9996 18.3582C12.1596 18.3582 12.3096 18.3082 12.4396 18.1882L18.4796 12.6982C18.7896 12.4182 18.7896 11.9382 18.4796 11.6582L12.4396 6.16817C12.1696 5.92817 11.7596 5.94817 11.5196 6.20817C11.2796 6.47817 11.2896 6.88817 11.5596 7.12817L16.3953 11.5282H5.49961C5.14062 11.5282 4.84961 11.8192 4.84961 12.1782C4.84961 12.5372 5.14062 12.8282 5.49961 12.8282H16.3953L11.5596 17.2282C11.2996 17.4682 11.2796 17.8782 11.5196 18.1482Z" fill="white"/>
@@ -361,7 +433,7 @@
   </div>
 </section>
 
-<section class="work-steps">
+<section class="work-steps" id="work-steps">
   <div class="container">
     <div class="work-steps__head">
       <h2 class="work-steps__title">
@@ -371,7 +443,7 @@
         Мы сопровождаем вас на каждом этапе, обеспечивая
         комфорт и прозрачность инвестирования, не имея доступа к вашим деньгам
       </p>
-      <a class="work-steps__application" href="">
+      <a class="work-steps__application" href="#application">
         Оставить заявку
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.0196 18.1482C11.1496 18.2882 11.3196 18.3582 11.4996 18.3582C11.6596 18.3582 11.8096 18.3082 11.9396 18.1882L17.9796 12.6982C18.2896 12.4182 18.2896 11.9382 17.9796 11.6582L11.9396 6.16817C11.6696 5.92817 11.2596 5.94817 11.0196 6.20817C10.7796 6.47817 10.7896 6.88817 11.0596 7.12817L15.8953 11.5282H4.99961C4.64062 11.5282 4.34961 11.8192 4.34961 12.1782C4.34961 12.5372 4.64062 12.8282 4.99961 12.8282H15.8953L11.0596 17.2282C10.7996 17.4682 10.7796 17.8782 11.0196 18.1482Z" fill="white"/>
@@ -391,9 +463,6 @@
           <rect x="473" y="63" width="90" height="90" rx="45" fill="url(#paint2_linear_2005_565)"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M524.333 109C524.333 111.946 521.945 114.333 519 114.333C516.054 114.333 513.666 111.946 513.666 109C513.666 106.055 516.054 103.667 519 103.667C521.945 103.667 524.333 106.055 524.333 109ZM522.6 109C522.6 110.988 520.988 112.6 519 112.6C517.012 112.6 515.4 110.988 515.4 109C515.4 107.012 517.012 105.4 519 105.4C520.988 105.4 522.6 107.012 522.6 109Z" fill="white"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M517.644 97.0066C516.463 97.0066 515.463 97.8775 515.3 99.0472C515.099 100.498 513.586 101.371 512.229 100.82C511.135 100.376 509.881 100.807 509.29 101.83L508.015 104.039C507.431 105.049 507.672 106.334 508.581 107.065C509.756 108.011 509.737 109.835 508.53 110.774C507.598 111.5 507.344 112.801 507.934 113.824L509.21 116.034C509.793 117.044 511.026 117.478 512.114 117.057C513.52 116.511 515.09 117.44 515.3 118.955C515.463 120.125 516.463 120.996 517.644 120.996H520.195C521.362 120.996 522.354 120.145 522.533 118.992C522.776 117.425 524.407 116.483 525.886 117.057C526.974 117.478 528.206 117.044 528.79 116.034L530.065 113.824C530.656 112.801 530.402 111.5 529.47 110.774C528.263 109.835 528.244 108.011 529.419 107.065C530.328 106.334 530.568 105.049 529.985 104.039L528.709 101.83C528.119 100.807 526.865 100.376 525.77 100.82C524.353 101.396 522.764 100.501 522.533 99.0098C522.354 97.857 521.362 97.0066 520.195 97.0066H517.644ZM517.017 99.2855C517.061 98.9728 517.328 98.7399 517.644 98.7399L520.195 98.7399C520.507 98.7399 520.772 98.9673 520.82 99.2755C521.226 101.892 523.989 103.415 526.422 102.426C526.715 102.308 527.05 102.423 527.208 102.696L528.484 104.906C528.64 105.176 528.576 105.519 528.333 105.715C526.27 107.374 526.332 110.528 528.405 112.142C528.654 112.336 528.722 112.684 528.564 112.957L527.289 115.167C527.133 115.437 526.803 115.553 526.512 115.44C524.001 114.467 521.233 116.065 520.82 118.727C520.772 119.035 520.507 119.262 520.195 119.262H517.644C517.328 119.262 517.061 119.029 517.017 118.717C516.656 116.115 513.956 114.484 511.487 115.44C511.197 115.553 510.867 115.437 510.711 115.167L509.435 112.957C509.278 112.684 509.346 112.336 509.595 112.142C511.667 110.528 511.73 107.374 509.667 105.715C509.424 105.519 509.36 105.176 509.516 104.906L510.791 102.696C510.949 102.423 511.285 102.308 511.577 102.426C513.981 103.402 516.661 101.855 517.017 99.2855Z" fill="white"/>
-          <g filter="url(#filter3_f_2005_565)">
-          <path d="M782 108C782 115.879 780.448 123.681 777.433 130.961C774.417 138.241 769.998 144.855 764.426 150.426C758.855 155.998 752.241 160.417 744.961 163.433C737.681 166.448 729.879 168 722 168C714.121 168 706.319 166.448 699.039 163.433C691.759 160.417 685.145 155.998 679.574 150.426C674.002 144.855 669.583 138.241 666.567 130.961C663.552 123.681 662 115.879 662 108H686C686 112.728 686.931 117.409 688.74 121.777C690.55 126.144 693.201 130.113 696.544 133.456C699.887 136.799 703.856 139.45 708.223 141.26C712.591 143.069 717.272 144 722 144C726.728 144 731.409 143.069 735.777 141.26C740.144 139.45 744.113 136.799 747.456 133.456C750.799 130.113 753.45 126.144 755.26 121.777C757.069 117.409 758 112.728 758 108H782Z" fill="#2E64E7"/>
-          </g>
           <rect x="676.5" y="62.5" width="91" height="91" rx="45.5" fill="url(#paint3_linear_2005_565)"/>
           <rect x="676.5" y="62.5" width="91" height="91" rx="45.5" stroke="url(#paint4_radial_2005_565)"/>
           <path d="M731 96.7473C731.479 96.7473 731.867 97.1353 731.867 97.614V100.133H734.386C734.865 100.133 735.253 100.521 735.253 101C735.253 101.479 734.865 101.867 734.386 101.867H731.867V104.386C731.867 104.865 731.479 105.253 731 105.253C730.521 105.253 730.133 104.865 730.133 104.386V101.867H727.614C727.135 101.867 726.747 101.479 726.747 101C726.747 100.521 727.135 100.133 727.614 100.133H730.133V97.614C730.133 97.1353 730.521 96.7473 731 96.7473Z" fill="white"/>
@@ -445,10 +514,10 @@
           <stop stop-color="white" stop-opacity="0.05"/>
           <stop offset="1" stop-color="white" stop-opacity="0.05"/>
           </linearGradient>
-          <linearGradient id="paint7_linear_2005_565" x1="0" y1="108" x2="1240" y2="108" gradientUnits="userSpaceOnUse">
-          <stop offset="0.331731" stop-color="#2C3039"/>
-          <stop offset="0.581731" stop-color="#2E64E7"/>
-          <stop offset="0.826923" stop-color="#2C3039"/>
+          <linearGradient class="works-gradient" id="paint7_linear_2005_565" x1="0" y1="108" x2="1240" y2="108" gradientUnits="userSpaceOnUse">
+          <stop offset="0.331731" stop-color="#2C3039" class="stop1"/>
+          <stop offset="0.581731" stop-color="#2E64E7" class="stop2"/>
+          <stop offset="0.826923" stop-color="#2C3039" class="stop3"/>
           </linearGradient>
           </defs>
         </svg>
@@ -523,27 +592,27 @@
 
       </div>
       <div class="work-steps__info">
-        <div class="work-steps__info-item">
+        <div class="work-steps__info-item" data-steps="1">
           <span class="work-steps__info-title">Заполнение <br> заявки</span>
           <span class="work-steps__info-text">Оставляете заявку <br> на сайте или в Telegram</span>
         </div>
-        <div class="work-steps__info-item">
+        <div class="work-steps__info-item" data-steps="2">
           <span class="work-steps__info-title">Консультация <br> со специалистом</span>
           <span class="work-steps__info-text">Наш менеджер <br> отвечает  на вопросы <br> о безопасности, <br> доходности и рисках</span>
         </div>
-        <div class="work-steps__info-item">
+        <div class="work-steps__info-item" data-steps="3">
           <span class="work-steps__info-title">Подготовка <br> аккаунта</span>
           <span class="work-steps__info-text">Вы пополняете баланс <br> биржи и настраиваете <br> доступ для торговли <br> через API-ключи</span>
         </div>
-        <div class="work-steps__info-item work-steps__info-item--active">
+        <div class="work-steps__info-item work-steps__info-item--active" data-steps="4">
           <span class="work-steps__info-title">Выбор <br> риска</span>
           <span class="work-steps__info-text">Вы выбираете <br> подходящую стратегию <br> инвестирования</span>
         </div>
-        <div class="work-steps__info-item">
+        <div class="work-steps__info-item" data-steps="5">
           <span class="work-steps__info-title">Запуск <br> алгоритма</span>
           <span class="work-steps__info-text">Алгоритм начинает <br> торговлю, Вы можете <br> отслеживать процесс <br> через личный кабинет</span>
         </div>
-        <div class="work-steps__info-item">
+        <div class="work-steps__info-item" data-steps="6">
           <span class="work-steps__info-title">Финальный <br> результат</span>
           <span class="work-steps__info-text">Вы получаете доход <br> на свой кошелек <br> который привязан</span>
         </div>
@@ -552,7 +621,7 @@
   </div>
 </section>
 
-<section class="advantages">
+<section class="advantages" id="advantages">
   <div class="container">
     <div class="advantages__content">
       <div class="advantages__info">
@@ -657,7 +726,7 @@
   </div>
 </section>
 
-<section class="profitability">
+<section class="profitability" id="profitability">
   <div class="container">
     <h2 class="profitability__title">История доходности</h2>
     <div class="profitability__table-wrapper">
@@ -763,7 +832,7 @@
       </div>
     </div>
     <div class="centered">
-       <a class="profitability__compare" href="">
+       <a class="profitability__compare" href="#hero">
       Сравните доходность
       <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M11.5196 18.1482C11.6496 18.2882 11.8196 18.3582 11.9996 18.3582C12.1596 18.3582 12.3096 18.3082 12.4396 18.1882L18.4796 12.6982C18.7896 12.4182 18.7896 11.9382 18.4796 11.6582L12.4396 6.16817C12.1696 5.92817 11.7596 5.94817 11.5196 6.20817C11.2796 6.47817 11.2896 6.88817 11.5596 7.12817L16.3953 11.5282H5.49961C5.14062 11.5282 4.84961 11.8192 4.84961 12.1782C4.84961 12.5372 5.14062 12.8282 5.49961 12.8282H16.3953L11.5596 17.2282C11.2996 17.4682 11.2796 17.8782 11.5196 18.1482Z" fill="white"/>
@@ -774,7 +843,7 @@
   </div>
 </section>
 
-<section class="reviews">
+<section class="reviews" id="reviews">
   <div class="container">
     <div class="reviews__head">
       <div class="reviews__head-info">
@@ -1097,7 +1166,7 @@
   </div>
 </section>
 
-<section class="popular-people">
+<section class="popular-people" id="popular-people">
   <div class="container">
     <h2 class="popular-people__title">Что известные люди говорят <br><span>про криптовалюту?</span></h2>
     <div class="popular-people__content">
@@ -1159,7 +1228,7 @@
   </div>
 </section>
 
-<section class="faq">
+<section class="faq" id="faq">
   <div class="container">
     <span class="faq__tag">F.A.Q</span>
     <h2 class="faq__title">Ответы на ваши <span>вопросы</span></h2>
@@ -1298,7 +1367,7 @@
   </div>
 </section>
 
-<section class="application">
+<section class="application" id="application">
   <div class="container">
     <div class="application__content">
       <div class="application__info">
@@ -1389,36 +1458,36 @@
               </a>
             </li>
           </ul>
-          <a class="footer__email" href="">invest@vanton.ai</a>
+          <a class="footer__email" href="mailto:invest@vanton.ai">invest@vanton.ai</a>
         </div>
       </div>
       <ul class="footer__list list-reset">
         <li class="footer__item">
-          <a class="footer__link" href="">Главная</a>
+          <a class="footer__link" href="/">Главная</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">Преимущества</a>
+          <a class="footer__link" href="#advantages">Преимущества</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">Мнение</a>
+          <a class="footer__link" href="#popular-people">Мнение</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">О фонде</a>
+          <a class="footer__link" href="#about">О фонде</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">История доходности</a>
+          <a class="footer__link" href="#profitability">История доходности</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">F.A.Q</a>
+          <a class="footer__link" href="#faq">F.A.Q</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">Порядок работы</a>
+          <a class="footer__link" href="#work-steps">Порядок работы</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">Отзывы</a>
+          <a class="footer__link" href="#reviews">Отзывы</a>
         </li>
         <li class="footer__item">
-          <a class="footer__link" href="">Форма для консультации</a>
+          <a class="footer__link" href="#application">Форма для консультации</a>
         </li>
       </ul>
       <div class="footer__coppyright">

@@ -208,53 +208,149 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+  const worksInfo = document.querySelectorAll(".work-steps__info-item");
+  const stop1 = document.querySelector(".stop1");
+  const stop2 = document.querySelector(".stop2");
+  const stop3 = document.querySelector(".stop3");
+
+  // Начальные и целевые значения offset
+  let currentOffsets = {
+    stop1: parseFloat(stop1.getAttribute("offset")),
+    stop2: parseFloat(stop2.getAttribute("offset")),
+    stop3: parseFloat(stop3.getAttribute("offset"))
+  };
+  let targetOffsets = {
+    ...currentOffsets
+  };
+
+  // Параметры анимации
+  const animationSettings = {
+    speed: 0.02,
+    // Чем меньше, тем плавнее (0.01 - очень плавно, 0.1 - быстрее)
+    minDelta: 0.0005 // Минимальное изменение для остановки анимации
+  };
+
+  // Функция плавного перехода (экспоненциальное замедление)
+  function lerp(start, end, speed) {
+    return start + (end - start) * speed;
+  }
+
+  // Проверка, нужно ли ещё анимировать
+  function shouldAnimate() {
+    return Math.abs(currentOffsets.stop1 - targetOffsets.stop1) > animationSettings.minDelta || Math.abs(currentOffsets.stop2 - targetOffsets.stop2) > animationSettings.minDelta || Math.abs(currentOffsets.stop3 - targetOffsets.stop3) > animationSettings.minDelta;
+  }
+
+  // Основная функция анимации
+  function animateGradient() {
+    if (shouldAnimate()) {
+      currentOffsets.stop1 = lerp(currentOffsets.stop1, targetOffsets.stop1, animationSettings.speed);
+      currentOffsets.stop2 = lerp(currentOffsets.stop2, targetOffsets.stop2, animationSettings.speed);
+      currentOffsets.stop3 = lerp(currentOffsets.stop3, targetOffsets.stop3, animationSettings.speed);
+      stop1.setAttribute("offset", currentOffsets.stop1);
+      stop2.setAttribute("offset", currentOffsets.stop2);
+      stop3.setAttribute("offset", currentOffsets.stop3);
+    }
+    requestAnimationFrame(animateGradient);
+  }
+  animateGradient();
+
+  // Обработчик наведения
+  worksInfo.forEach(el => {
+    el.addEventListener("mouseover", () => {
+      // Переключение активного класса
+      worksInfo.forEach(item => {
+        item.classList.remove("work-steps__info-item--active");
+      });
+      el.classList.add("work-steps__info-item--active");
+
+      // Вычисление новой позиции
+      const rect = el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const normalizedX = centerX / document.documentElement.clientWidth;
+
+      // Новые целевые значения
+      targetOffsets = {
+        stop1: Math.max(0, normalizedX - 0.2),
+        stop2: Math.min(1, Math.max(0, normalizedX)),
+        stop3: Math.min(1, normalizedX + 0.2)
+      };
+    });
+  });
 });
 
 // Функция для загрузки JSON файла
 async function loadJSON() {
   try {
-    const response = await fetch('../json/chart.json');
+    const response = await fetch('/json/chart.json');
     if (!response.ok) {
       throw new Error('Ошибка загрузки файла');
     }
     const data = await response.json();
+    console.log(data);
     return data.Data;
   } catch (error) {
     console.error('Ошибка:', error);
     return null;
   }
 }
+let balanceChartInstance = null;
+// Функция для обновления графика с пользовательским балансом
+async function updateChartWithCustomBalance(period) {
+  const initialBalanceInput = document.getElementById('initialBalance');
+  if (!initialBalanceInput) return;
+  const customBalance = parseFloat(initialBalanceInput.value);
+  if (isNaN(customBalance)) {
+    alert('Пожалуйста, введите корректное число');
+    return;
+  }
+  const data = await loadJSON();
+  if (!data) return;
+
+  // Уничтожаем предыдущий график, если он существует
+  if (balanceChartInstance) {
+    balanceChartInstance.destroy();
+    balanceChartInstance = null;
+  }
+  createCharts(data, customBalance, period);
+}
 
 // Функция для создания графиков
-async function createCharts() {
-  const data = await loadJSON();
+async function createCharts(data) {
+  let initialBalance = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  let period = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "all";
   if (!data) return;
 
   // Подготовка данных
   const dates = data.map(item => new Date(item.Date).getFullYear());
-  const balances = data.map(item => item.Balance);
-  console.log(dates);
+  let balances;
+  if (initialBalance !== null) {
+    balances = [initialBalance];
+    for (let i = 1; i < data.length; i++) {
+      const dailyReturn = data[i]["Daily Return (%)"] / 100;
+      balances.push(balances[i - 1] * (1 + dailyReturn));
+    }
+  } else {
+    balances = data.map(item => item.Balance);
+  }
+
   // Создание графика баланса
   const balanceCtx = document.getElementById('balanceChart').getContext('2d');
-  function filterLabels(labels) {
-    const result = [];
-    let lastYear = '';
-    labels.forEach((label, index) => {
-      const date = new Date(label);
-      const currentYear = date.getFullYear().toString();
-
-      // Показываем метку только если год изменился или это первая/последняя точка
-      if (currentYear !== lastYear || index === 0 || index === labels.length - 1) {
-        result.push(label);
-        lastYear = currentYear;
-      } else {
-        result.push(''); // Пустая строка скроет метку
-      }
-    });
-
-    return result;
-  }
-  new chart_js_auto__WEBPACK_IMPORTED_MODULE_1__["default"](balanceCtx, {
+  const gradient = balanceCtx.createLinearGradient(0, 0, 0, balanceCtx.canvas.height);
+  gradient.addColorStop(0, 'rgba(51, 95, 227, 0.3)');
+  gradient.addColorStop(1, 'rgba(51, 95, 227, 0.05)');
+  const yearLabels = [];
+  const yearPositions = [];
+  let lastYear = null;
+  dates.forEach((dateStr, index) => {
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    if (year !== lastYear) {
+      yearLabels.push(year.toString());
+      yearPositions.push(index);
+      lastYear = year;
+    }
+  });
+  balanceChartInstance = new chart_js_auto__WEBPACK_IMPORTED_MODULE_1__["default"](balanceCtx, {
     type: 'line',
     data: {
       labels: dates,
@@ -264,16 +360,17 @@ async function createCharts() {
         borderColor: '#335fe3',
         borderWidth: 1,
         tension: 0.1,
-        fill: false,
-        backgroundColor: undefined,
+        fill: true,
+        backgroundColor: gradient,
         pointRadius: 0
       }]
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       layout: {
         padding: {
-          top: 20,
+          top: 50,
           left: 10,
           right: 10,
           bottom: 10
@@ -281,47 +378,117 @@ async function createCharts() {
       },
       scales: {
         x: {
-          grid: {
-            display: true
-          },
+          // Было xAxes: [{...}] в v2.x
           ticks: {
-            callback: function (value, index, ticks) {
-              return '$' + value;
-            }
+            grid: {
+              color: "red"
+            },
+            padding: 10,
+            maxTicksLimit: window.innerWidth > 576 ? 7 : 4,
+            maxRotation: 0,
+            // Горизонтальные подписи
+            minRotation: 0 // Горизонтальные подписи
           }
         },
+
         y: {
-          grid: {
-            display: true
+          // Было yAxes: [{...}]
+          min: balances[0],
+          ticks: {
+            maxTicksLimit: 7,
+            callback: function (value) {
+              return '$' + value.toLocaleString(); // Добавляем $ и форматируем число
+            }
           }
+        }
+      },
+
+      onHover: function (e, elements) {
+        const customPoint = document.getElementById('customPoint');
+        if (elements.length) {
+          const {
+            x,
+            y
+          } = e;
+          customPoint.style.opacity = '1';
+          customPoint.style.left = `${x + e.chart.canvas.offsetLeft}px`;
+          customPoint.style.top = `${y + e.chart.canvas.offsetTop}px`;
+        } else {
+          customPoint.style.opacity = '0';
         }
       },
       plugins: {
-        legend: {
-          display: false
-        },
         tooltip: {
+          enabled: true,
+          // Включить подсказки
+          mode: 'index',
+          // Показывать все элементы при наведении
+          intersect: false,
+          // Срабатывать при наведении на область
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          // Цвет фона
+          titleColor: '#ffffff',
+          // Цвет заголовка
+          bodyColor: '#e0e0e0',
+          // Цвет текста
+          borderColor: '#223a72',
+          // Цвет рамки
+          borderWidth: 1,
+          // Толщина рамки
+          padding: 12,
+          // Внутренние отступы
+          cornerRadius: 6,
+          // Закругление углов
+          displayColors: false,
+          // Скрыть цветные квадраты
+
           callbacks: {
             label: function (context) {
-              return 'Баланс: ' + context.parsed.y.toFixed(2);
+              return `$${context.parsed.y.toLocaleString()}`;
             }
           }
-        }
-      },
-      scales: {
-        x: {
-          ticks: {
-            maxRotation: 45,
-            minRotation: 45
-          }
+        },
+        legend: {
+          display: false
         }
       }
     }
   });
 }
+let updateTimer = null;
+
+// Функция для обработки изменения ввода
+function handleBalanceInput() {
+  const input = document.getElementById('initialBalance');
+
+  // Очищаем предыдущий таймер, если он есть
+  if (updateTimer) {
+    clearTimeout(updateTimer);
+  }
+
+  // Устанавливаем новый таймер на 2 секунды
+  updateTimer = setTimeout(async () => {
+    const initialBalance = parseFloat(input.value);
+    if (!isNaN(initialBalance)) {
+      updateChartWithCustomBalance();
+    }
+  }, 500); // 2000 мс = 2 секунды
+}
+
+// Инициализация после загрузки DOM
+document.addEventListener('DOMContentLoaded', () => {
+  const balanceInput = document.getElementById('initialBalance');
+
+  // Добавляем обработчики событий
+  if (balanceInput) {
+    balanceInput.addEventListener('input', handleBalanceInput);
+    balanceInput.addEventListener('change', handleBalanceInput);
+    balanceInput.addEventListener('blur', handleBalanceInput);
+  }
+});
 
 // Запуск создания графиков при загрузке страницы
-document.addEventListener('DOMContentLoaded', createCharts);
+document.addEventListener('DOMContentLoaded', updateChartWithCustomBalance);
 
 /***/ }),
 
@@ -28378,3 +28545,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
+//# sourceMappingURL=main.js.map
