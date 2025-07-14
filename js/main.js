@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Функция для загрузки JSON файла
 async function loadJSON() {
   try {
-    const response = await fetch('../json/График.json');
+    const response = await fetch('../json/chart.json');
     if (!response.ok) {
       throw new Error('Ошибка загрузки файла');
     }
@@ -28378,4 +28378,3 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=main.js.map
