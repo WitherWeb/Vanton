@@ -161,17 +161,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const accordionItems = document.querySelectorAll(".accordion__item");
   accordionItems.forEach(el => {
     el.setAttribute("data-height", el.clientHeight);
-    if (!el.classList.contains("accordion__item--active")) {
-      el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
-    }
+    el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
     el.addEventListener("click", () => {
-      el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
-        item.classList.remove("accordion__item--active");
-        item.style.height = `${item.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
-      });
-      el.classList.add("accordion__item--active");
-      el.style.height = `${el.getAttribute("data-height")}px`;
+      if (!el.classList.contains("accordion__item--active")) {
+        el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
+          item.classList.remove("accordion__item--active");
+          item.style.height = `${item.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
+        });
+        el.classList.add("accordion__item--active");
+        el.style.height = `${el.getAttribute("data-height")}px`;
+      }
     });
+  });
+  const accordion = document.querySelectorAll(".accordion");
+  accordion.forEach(el => {
+    el.querySelector('.accordion__item').click();
   });
   const swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".reviews__swiper", {
     slidesPerView: 2,
@@ -370,7 +374,7 @@ async function createCharts(data) {
       maintainAspectRatio: false,
       layout: {
         padding: {
-          top: 50,
+          top: 30,
           left: 10,
           right: 10,
           bottom: 10
