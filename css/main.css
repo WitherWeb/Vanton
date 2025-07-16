@@ -702,11 +702,13 @@ input, select {
   top: 20px;
   right: 20px;
 }
-.hero__block-img {
-  margin-left: 70px;
-}
-.hero__block-img-reliability {
-  margin-left: 35px;
+@media (max-width: 576px) {
+  .hero__block-img {
+    margin-left: 70px;
+  }
+  .hero__block-img-reliability {
+    margin-left: 35px;
+  }
 }
 @media (max-width: 1200px) {
   .hero__block-img {
