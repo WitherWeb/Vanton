@@ -1582,6 +1582,11 @@ input, select {
   color: white;
   margin: 0;
 }
+.advantages__accordion .accordion__item-img {
+  max-width: 190px;
+  width: 100%;
+}
+
 .accordion {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1611,6 +1616,7 @@ input, select {
   -webkit-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+  overflow: hidden;
 }
 @media (any-hover: hover) {
   .accordion__item:hover {
@@ -1769,6 +1775,10 @@ input, select {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+.faq__accordion .accordion__item-img {
+  width: 100%;
+  max-width: 480px;
 }
 .profitability {
   padding: 200px 0;
