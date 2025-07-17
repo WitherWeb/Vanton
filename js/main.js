@@ -158,24 +158,26 @@ console.log('start');
 swiper__WEBPACK_IMPORTED_MODULE_0__["default"].use([swiper__WEBPACK_IMPORTED_MODULE_0__.Navigation, swiper__WEBPACK_IMPORTED_MODULE_0__.Pagination, swiper__WEBPACK_IMPORTED_MODULE_0__.Grid]);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const accordionItems = document.querySelectorAll(".accordion__item");
-  accordionItems.forEach(el => {
-    el.setAttribute("data-height", el.clientHeight);
-    el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
-    el.addEventListener("click", () => {
-      if (!el.classList.contains("accordion__item--active")) {
-        el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
-          item.classList.remove("accordion__item--active");
-          item.style.height = `${item.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
-        });
-        el.classList.add("accordion__item--active");
-        el.style.height = `${el.getAttribute("data-height")}px`;
-      }
+  window.addEventListener('load', function () {
+    const accordionItems = document.querySelectorAll(".accordion__item");
+    accordionItems.forEach(el => {
+      el.setAttribute("data-height", el.clientHeight);
+      el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
+      el.addEventListener("click", () => {
+        if (!el.classList.contains("accordion__item--active")) {
+          el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
+            item.classList.remove("accordion__item--active");
+            item.style.height = `${item.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
+          });
+          el.classList.add("accordion__item--active");
+          el.style.height = `${el.getAttribute("data-height")}px`;
+        }
+      });
     });
-  });
-  const accordion = document.querySelectorAll(".accordion");
-  accordion.forEach(el => {
-    el.querySelector('.accordion__item').click();
+    const accordion = document.querySelectorAll(".accordion");
+    accordion.forEach(el => {
+      el.querySelector('.accordion__item').click();
+    });
   });
   const swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".reviews__swiper", {
     slidesPerView: 2,
@@ -28551,3 +28553,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
+//# sourceMappingURL=main.js.map
