@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   accordionItems.forEach(el => {
     el.setAttribute("data-height", el.clientHeight);
     el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
+    el.style.overflow = "hidden";
     el.addEventListener("click", () => {
       if (!el.classList.contains("accordion__item--active")) {
         el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
