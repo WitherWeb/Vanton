@@ -162,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
   accordionItems.forEach(el => {
     el.setAttribute("data-height", el.clientHeight);
     el.style.height = `${el.querySelector(".accordion__item-title").clientHeight + 15 + 48}px`;
-    el.style.overflow = "hidden";
     el.addEventListener("click", () => {
       if (!el.classList.contains("accordion__item--active")) {
         el.closest(".accordion").querySelectorAll(".accordion__item").forEach(item => {
@@ -449,7 +448,9 @@ async function createCharts(data) {
 
           callbacks: {
             label: function (context) {
-              return `$${context.parsed.y.toLocaleString()}`;
+              const value = context.parsed.y;
+              const change = ((value - balances[0]) / balances[0] * 100).toFixed(2);
+              return [`$${value.toLocaleString()}`, `+${change}%`];
             }
           }
         },
